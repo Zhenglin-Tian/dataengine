@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--公积金爬虫变量迁移 var-->
+<step name="var" id="fundb_migration_var" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>enterprise_info_std,crawler_fundb_std</relyon>
+    <!--<period>
+        <periodInSecond>0</periodInSecond>
+        <mainTable>var_var_aa_ip_housingfund_var</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="fundb_migration_var_url"
+                           timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|crawler_fundb_std}" target="rid_housingfund"/>
+                    <mapping source="${cxt|enterprise_info_std}" target="rid_enterprise"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <writer type="cxt">
+        <writerWhere type="cxt" name="fundbmigration_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

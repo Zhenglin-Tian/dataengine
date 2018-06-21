@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--企业工商信息std-->
+<step name="std" id="enterprise_info_std" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <dataSource>enterprise_info</dataSource>
+        <periodInSecond>86400</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="uuid" value="${req|uuid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${verifyenterpriseinfo}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${req|regno}" target="regno"/>
+                    <mapping source="${req|ename}" target="ename"/>
+                    <mapping source="${req|req_time}" target="req_time"/>
+                    <mapping source="${req|seq_num}" target="seq_num"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

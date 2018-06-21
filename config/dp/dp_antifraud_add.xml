@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="antifraud_add" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>反欺诈进件</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="antifraud_add" order="1" percent="20" status="able">
+            <description>反欺诈进件</description>
+            <step name="std" id="antifraud_add"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

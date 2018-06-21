@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<step name="var" id="applyform_var" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>applyform_tidy</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>tidy_applyform_applyform</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="applyform_var_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${applyform}" target="mid"/>
+                    <mapping source="${applyform}" target="cmid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

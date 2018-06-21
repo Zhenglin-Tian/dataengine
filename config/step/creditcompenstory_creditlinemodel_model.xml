@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--信用卡代偿授信额度model-->
+<step name="model" id="creditcompenstoy_creditlinemodel_model" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>crawler_ebank_var,pfkb_model,pfk_model</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>model_model_zz_ccrp_creditlinem</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="bankcardr_limit_model_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|crawler_ebank_var}" target="rid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

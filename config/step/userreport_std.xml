@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--运营商爬虫std-->
+<step name="std" id="userreport_std" status="able"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <dataSource>userreport</dataSource>
+        <periodInSecond>3600</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="tid" value="${req|userreport_tid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${userreport}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${req|req_time}" target="req_time"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${req|userreport_tid}" target="orderId"/>
+                    <mapping source="${req|userreport_type}" target="type"/>
+                    <mapping source="${req|userreport_data}" target="data"/>
+                    <mapping source="${req|userreport_spider_type}" target="spider_type"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

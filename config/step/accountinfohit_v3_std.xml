@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--蜂嗅3.0 std-->
+<step name="std" id="accountinfohit_v3_std" status="able" storeType="mongo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <!--<period>-->
+        <!--<dataSource>accountinfohit</dataSource>-->
+        <!--<periodInSecond>0</periodInSecond>-->
+        <!--<mainTable>std_std_ip_beesmell_hitapp_result</mainTable>-->
+        <!--<params>-->
+            <!--<param name="gid" value="${req|gid}"/>-->
+        <!--</params>-->
+    <!--</period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${accountinfohit_v3}" target="cmid"/>
+
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${req|passParam}" target="passParam"/>
+                    <mapping source="${req|bid}" target="bid"/>
+                    <mapping source="${req|seq_num}" target="seq_num"/>
+
+                    <mapping source="${req|req_time}" target="req_time"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+
+    <xs:simpleType name="status-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="able"/>
+            <xs:enumeration value="disable"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

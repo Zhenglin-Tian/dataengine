@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--反欺诈更新-->
+<step name="std" id="antifraud_update" status="able" persistence="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+
+    <!--<period>
+        <dataSource>onlinetimec</dataSource>
+        <periodInSecond>86400</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(event)" url="antifraud_update_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|seq_num}" target="ei"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|bid}" target="idCooper"/>
+                    <mapping source="${req|req_time}" target="ts"/>
+
+                    <mapping source="${req|auditStatus}" target="auditStatus"/>
+                </mapper>
+
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

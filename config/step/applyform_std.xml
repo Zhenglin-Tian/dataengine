@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--申请单标准化std-->
+<step name="std" id="applyform_std" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <dataSource>applyform</dataSource>
+        <periodInSecond>60</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="uuid" value="${req|uuid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${applyform}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <!--<mapping source="${req|no_produt}" target="no_product"/>-->
+                    <mapping source="${req|data}" target="data"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="creditlimit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>授信额度（信用卡代偿）模型分</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="creditlimit" order="1" percent="20" status="able">
+            <description>授信额度（信用卡代偿）模型分</description>
+            <step name="std" id="userreport_std"/>
+            <step name="var" id="creditcompenstoryapplyform_var"/>
+
+            <step name="var" id="userreport2creditcompenstory_var"/>
+            <step name="var" id="pfkb_model"/>
+            <step name="var" id="creditcompenstoy_creditlinemodel_model"/>
+
+            <step name="var" id="crawler_ebank_std"/>
+            <step name="var" id="crawler_ebank_var"/>
+
+            <step name="var" id="pfk_model"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

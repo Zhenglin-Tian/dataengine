@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:include schemaLocation="status-type.xsd"/>
+    <xs:include schemaLocation="data-processing-units.xsd"/>
+    <xs:element name="dataModule">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="results" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="result" maxOccurs="20" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="dataProcessingUnits" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="status" type="status-type"/>
+            <xs:attribute name="id" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="result">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="field" type="field-type" minOccurs="0" maxOccurs="20"/>
+            </xs:sequence>
+            <xs:attribute name="stepId" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="field-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="rid"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

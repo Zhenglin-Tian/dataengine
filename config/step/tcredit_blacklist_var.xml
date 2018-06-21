@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--天创黑名单 var-->
+<step name="var" id="tcredit_blacklist_var" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>tcredit_blacklist_std,personalblacklistc_std,many_multipoint_lending_high_std</relyon>
+    <!--<period>
+        <periodInSecond>0</periodInSecond>
+        <mainTable>var_blacklist_ip_blacklist_r_result</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="tcredit_blacklist_var_url" timeThreshold="100"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${cxt|tcredit_blacklist_std}" target="rid"/>
+                    <mapping source="${cxt|personalblacklistc_std}" target="DPD_AF_00101"/>
+                    <mapping source="${cxt|many_multipoint_lending_high_std}" target="DPD_AF_00901"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <writer type="cxt">
+        <writerWhere type="cxt" name="70001_v2_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

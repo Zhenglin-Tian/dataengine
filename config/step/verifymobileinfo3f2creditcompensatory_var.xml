@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--(信用卡代偿)集奥-手机三要素认证var-->
+<step name="var" id="verifymobileinfo3f2creditcompensatory_var" status="able"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>verifymobileinfo3f_std</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>var_var_zz_ccrp_mobverify</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="verifymobileinfo3fcompensatory_var_data_url"
+                           timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|verifymobileinfo3f_std}" target="rid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

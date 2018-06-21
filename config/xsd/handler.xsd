@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:include schemaLocation="mapper.xsd"/>
+    <xs:element name="handler">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="serviceCallingManager" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="serviceCallingManager">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="serviceCaller" minOccurs="0"/>
+                <xs:element ref="attemptManager" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="serviceCaller">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapper" minOccurs="0" maxOccurs="50"/>
+                <xs:element ref="jsonParam" minOccurs="0" maxOccurs="50"/>
+                <xs:element ref="arrayParam" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+            <xs:attribute name="method" type="method-type"/>
+            <xs:attribute name="paramForm" type="param-form-type"/>
+            <xs:attribute name="url" type="xs:string"/>
+            <xs:attribute name="timeThreshold" type="xs:unsignedInt"/>
+            <xs:attribute name="failurePolicy" type="inner-failure-policy-type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="method-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GET"/>
+            <xs:enumeration value="POST"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="param-form-type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(map)|(json\([a-zA-Z]*\))"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="inner-failure-policy-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ignore"/>
+            <xs:enumeration value="attempt"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="attemptManager">
+        <xs:complexType>
+            <xs:attribute name="times" type="xs:unsignedInt"/>
+            <xs:attribute name="intervalInMilli" type="xs:unsignedInt"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

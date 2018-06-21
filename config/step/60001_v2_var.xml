@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--贷中监控 var-->
+<step name="var" id="60001_v2_var" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>60001_std,accountinfohit_v3_var,many_multipoint_lending_high_std,personalblacklistc_v3_std,many_multipoint_lending_high_dateback_v3_std</relyon>
+    <!--<period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>var_midloan_ip_midloan_r_result</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="midloan_data_var_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${cxt|60001_std}" target="rid"/>
+                    <mapping source="${cxt|accountinfohit_v3_var}" target="DPD_AF_00701"/>
+                    <mapping source="${cxt|many_multipoint_lending_high_std}" target="DPD_AF_00901"/>
+                    <mapping source="${cxt|personalblacklistc_v3_std}" target="DPD_AF_00101"/>
+                    <mapping source="${cxt|many_multipoint_lending_high_dateback_v3_std}" target="RID_DUOTOU_HUISU"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <writer type="cxt">
+        <writerWhere type="cxt" name="60001_v2_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

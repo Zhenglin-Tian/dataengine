@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--银联智策-持卡人综合评分和衍生变量3.0 std-->
+<step name="std" id="unionpaytransactionvariableb_v3_std" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <dataSource>unionpaytransactionvariableb_v3</dataSource>
+        <periodInSecond>3600</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="uuid" value="${req|uuid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unionpaytransactionvariableb_v3}" target="cmid"/>
+                    <mapping source="${req|req_time}" target="req_time"/>
+                    <mapping source="${req|name}" target="name"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${req|bankcard}" target="bankcard"/>
+                    <mapping source="${req|bid}" target="bid"/>
+                    <mapping source="${req|seq_num}" target="seq_num"/>
+
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

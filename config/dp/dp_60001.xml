@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="60001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>贷中监控（数据产品） 变量计算</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="60001" order="1" percent="20" status="able">
+            <description>贷中监控（数据产品） 变量计算</description>
+            <step name="std" id="60001_std"/>
+
+            <step name="std" id="accountinfohit_v3_std"/>
+
+            <step name="var" id="accountinfohit_v3_var"/>
+
+            <step name="std" id="many_multipoint_lending_high_v3_std"/>
+
+            <step name="std" id="personalblacklistc_v3_std"/>
+
+            <step name="std" id="many_multipoint_lending_high_dateback_v3_std"/>
+
+            <step name="var" id="60001_var"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

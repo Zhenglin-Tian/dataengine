@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--反欺诈进件 std-->
+<step name="std" id="antifraud_add" status="able" persistence="false"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+
+    <!--<period>
+        <dataSource>onlinetimec</dataSource>
+        <periodInSecond>86400</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(event)" url="antifraud_add_data_url" timeThreshold="50"
+                           failurePolicy="ignore">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|seq_num}" target="ei"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|bid}" target="idCooper"/>
+                    <!--<mapping source="${req|req_time}" target="ts"/>-->
+
+                    <mapping source="${cxt|supplyParams}" target="supplyParams" type="array"/>
+                </mapper>
+
+                <arrayParam name="supplyParams">
+                    <json>
+                        <mapping source="${ip}" target="name"/>
+                        <mapping source="${req|ip}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${imei}" target="name"/>
+                        <mapping source="${req|imei}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${mphone}" target="name"/>
+                        <mapping source="${req|mobile}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${bankCardNo}" target="name"/>
+                        <mapping source="${req|bankCardNo}" target="val"/>
+                    </json>
+
+                    <json>
+                        <mapping source="${uuid}" target="name"/>
+                        <mapping source="${req|uuid}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${rphone}" target="name"/>
+                        <mapping source="${req|rphone}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${haddr}" target="name"/>
+                        <mapping source="${req|haddr}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${raddr}" target="name"/>
+                        <mapping source="${req|raddr}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${compaddr}" target="name"/>
+                        <mapping source="${req|compaddr}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${comptel}" target="name"/>
+                        <mapping source="${req|comptel}" target="val"/>
+                    </json>
+                    <json>
+                        <mapping source="${mac}" target="name"/>
+                        <mapping source="${req|mac}" target="val"/>
+                    </json>
+                </arrayParam>
+
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

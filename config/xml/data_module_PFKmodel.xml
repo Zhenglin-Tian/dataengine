@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<dataModule status="able" id="PFKmodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>PFK模型</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="PFKmodel" order="1" percent="20" status="able">
+            <description>PFK模型</description>
+            <step name="model" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="bankcardr_compensatory_model_data_url"
+                                       timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${PFKmodel}" target="mid"/>
+                                <mapping source="${PFKmodel}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="creditauditvariate" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>反欺诈变量 标准化(暂时不用)</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="creditauditvariate" order="1" percent="20" status="able">
+            <description>反欺诈变量 标准化</description>
+            <step name="std" id="antifraudvarcount_std"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

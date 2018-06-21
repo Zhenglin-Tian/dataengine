@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<dataModule status="able" id="antifraudvariablequery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>反欺诈变量</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="antifraudvariablequery" order="1" percent="20" status="able">
+            <description>反欺诈变量</description>
+            <step name="std" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${antifraudvariablequery}" target="mid"/>
+                                <mapping source="${antifraudvariablequery}" target="cmid"/>
+                                <!--<mapping source="${std}" target="step"/>
+                                <mapping source="${std}" target="dbName"/>
+                                <mapping source="${antifraudvariable}" target="tableName"/>-->
+
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${req|uuid}" target="uuid"/>
+                                <mapping source="${req|bcard}" target="bcard"/>
+                                <mapping source="${req|mphone}" target="mphone"/>
+                                <mapping source="${req|comptel}" target="comptel"/>
+                                <mapping source="${req|rphone}" target="rphone"/>
+                                <mapping source="${req|haddr}" target="haddr"/>
+                                <mapping source="${req|compaddr}" target="compaddr"/>
+                                <mapping source="${req|raddr}" target="raddr"/>
+                                <mapping source="${req|IMEI}" target="IMEI"/>
+                                <mapping source="${req|IPV4}" target="IPV4"/>
+                                <mapping source="${req|MAC}" target="MAC"/>
+                                <mapping source="${req|bid}" target="bid"/>
+
+
+                                <mapping source="${req|req_time}" target="req_time"/>
+                                <mapping source="${req|data}" target="data"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--申请雷达 std-->
+<step name="std" id="radar_std" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <dataSource>radar</dataSource>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>rc_dataengine_datasource_period</mainTable>
+        <params>
+            <param name="uuid" value="${req|uuid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${radar}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${req|bid}" target="bid"/>
+                    <mapping source="${req|name}" target="name"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${req|req_time}" target="query_time"/>
+                    <mapping source="${req|seq_num}" target="seq_num"/>
+                    <mapping source="${unit|mid}" target="prod_code"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

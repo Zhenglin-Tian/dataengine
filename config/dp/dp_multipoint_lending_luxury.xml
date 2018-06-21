@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="multipointlendingluxury" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>多头借贷豪华版 数据标准化</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="multipointlendingluxury" order="1" percent="20" status="able">
+            <description>多头借贷豪华版 数据标准化</description>
+            <step name="std" id="many_multipoint_lending_luxury_std"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

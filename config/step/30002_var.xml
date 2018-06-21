@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--蜂嗅数据产品 var-->
+<step name="var" id="30002_var" status="able" storeType="mongo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>accountinfohit_data_library_v3_std</relyon>
+    <!--<period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>var_product_ip_beesmell_r_output</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="accountinfohitvar_two_var_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${cxt|accountinfohit_data_library_v3_std}" target="rid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <!--<writer type="cxt_log">
+        <writerWhere type="cxt_log" name="30002_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>-->
+    <writer type="cxt">
+        <writerWhere type="cxt" name="30002_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

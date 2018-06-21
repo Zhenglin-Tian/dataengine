@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--app_msgr tidy-->
+<step name="tidy" id="app_msgr_tidy" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>applyform_std</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>tidy_appmsgr_callrec</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="app_msgr_tidy_url" timeThreshold="100"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|applyform_std}" target="rid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                </mapper>
+            </serviceCaller>
+            <!--<serviceCaller method="POST" paramForm="json(params)" url="tidy_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|applyform_std}" target="rid"/>
+                    <mapping source="${tidy_appmsgr}" target="tidyId"/>
+                </mapper>
+            </serviceCaller>-->
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

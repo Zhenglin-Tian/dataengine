@@ -1,0 +1,37 @@
+{
+  "code": "",
+  "msg": "",
+  "moduleName": "${moduleName}",
+  "stepName": "${stepName}",
+  "gid":"gid",
+  "data": [
+    {
+      "${dbName}": "dbName",
+      "${tableName}": "tableName",
+      "data": [
+        {
+          "field1": "v1",
+          "field2": "v2"
+        },
+        {
+          "field1": "v1’",
+          "field2": "v2’"
+        }
+      ]
+    },
+    {
+      "${dbName}": "dbName",
+      "${tableName}": "tableName",
+      "data": [
+        {
+          "field1": "v1",
+          "field2": "v2"
+        },
+        {
+          "field1": "v1’",
+          "field2": "v2’"
+        }
+      ]
+    }
+  ]
+}

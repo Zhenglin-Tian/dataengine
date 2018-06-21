@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--信用探针 tidy-->
+<step name="tidy" id="aacreditprobe01_tidy" status="able"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>many_multipoint_lending_nocard_v3_std,many_multipoint_lending_withholding_v3_std</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>tidy_tidy_aa_ip_creditprobe_tidy</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="aacreditprobe01_tidy_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|many_multipoint_lending_nocard_v3_std}" target="rid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

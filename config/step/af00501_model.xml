@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--点滴 model-->
+<step name="model" id="af00501_model" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>accountinfohit_v3_var,many_multipoint_lending_high_v3_std,personalblacklistc_v3_std,tcredit_blacklist_little_var</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>model_score_score</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="af00501_model_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${cxt|accountinfohit_v3_var}" target="DPD_AF_00701"/>
+                    <mapping source="${cxt|many_multipoint_lending_high_v3_std}" target="DPD_AF_00901"/>
+                    <mapping source="${cxt|personalblacklistc_v3_std}" target="DPD_AF_00101"/>
+                    <mapping source="${cxt|tcredit_blacklist_little_var}" target="DPD_AF_01201"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|gid}" target="rid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

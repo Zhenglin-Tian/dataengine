@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<dataModule status="able" id="creditlimit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>信用卡额度(信用卡代偿)</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="creditlimit" order="1" percent="20" status="able">
+            <description>信用卡额度(信用卡代偿)</description>
+            <step name="model" order="1">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="creditlimit_model_data_url"
+                                       timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${creditlimit}" target="mid"/>
+                                <mapping source="${creditlimit}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

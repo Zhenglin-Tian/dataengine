@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<dataModule status="able" id="unionpaytransactionvariableb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>银联智策-持卡人综合评分和衍生变量</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="unionpaytransactionvariableb" order="1" percent="20" status="able">
+            <description>银联智策-持卡人综合评分和衍生变量 </description>
+            <step name="std" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${req|uuid}" target="uuid"/>
+                                <mapping source="${req|bankcard}" target="bankcard"/>
+                                <mapping source="${req|mobile}" target="mobile"/>
+                                <mapping source="${req|name}" target="name"/>
+                                <mapping source="${req|idcard}" target="idcard"/>
+                                <mapping source="${req|req_time}" target="req_time"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="tidy" order="1">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="unionpay_tidy_data_url" timeThreshold="100"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="var" order="2">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="unionpay_var_data_url" timeThreshold="100"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="var" order="3">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="applyform_unionpay_var_data_url" timeThreshold="100"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="model" order="4">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="applyform_unionpay_model_data_url" timeThreshold="100"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                                <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

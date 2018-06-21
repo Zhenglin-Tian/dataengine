@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<step name="std" id="unionpaytransactionvariableb_std" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon></relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>tidy_applyform_applyform</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unionpaytransactionvariableb}" target="mid"/>
+                    <mapping source="${unionpaytransactionvariableb}" target="cmid"/>
+
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${req|uuid}" target="uuid"/>
+                    <mapping source="${req|bankcard}" target="bankcard"/>
+                    <mapping source="${req|mobile}" target="mobile"/>
+                    <mapping source="${req|name}" target="name"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                    <mapping source="${req|req_time}" target="req_time"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

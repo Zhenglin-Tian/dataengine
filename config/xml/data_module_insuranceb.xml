@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<dataModule status="able" id="insuranceb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>社保-爬虫</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="insuranceb" order="1" percent="20" status="able">
+            <description>社保-爬虫</description>
+            <step name="std" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${insuranceb}" target="mid"/>
+                                <mapping source="${insuranceb}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${req|uuid}" target="uuid"/>
+
+                                <mapping source="${req|req_time}" target="req_time"/>
+
+                                <mapping source="${req|tid}" target="tid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

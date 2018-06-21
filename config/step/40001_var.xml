@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--申请雷达 var-->
+<step name="var" id="40001_var" status="able"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>antifraud_add_select_std</relyon>
+    <!--<period>
+        <periodInSecond>0</periodInSecond>
+        <mainTable>var_antifraud_ip_applyradar_r_result</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="radar_var_url"
+                           timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|antifraud_add_select_std}" target="rid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <writer type="cxt">
+        <writerWhere type="cxt" name="40001_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

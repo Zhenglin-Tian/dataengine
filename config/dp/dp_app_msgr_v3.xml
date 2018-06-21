@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="appmsgr_v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>app_msgr3.0 模型计算</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="appmsgr_v3" order="1" percent="20" status="able">
+            <description>app_msgr3.0 模型计算</description>
+            <step name="std" id="applyform_std"/>
+            <step name="std" id="unionpaytransactionvariableb_v3_std"/>
+
+
+            <step name="tidy" id="app_msgr_v3_tidy"/>
+            <step name="tidy" id="applyform_tidy"/>
+            <step name="tidy" id="unionpaytransactionvariableb_v3_tidy"/>
+
+
+            <step name="var" id="unionpaytransactionvariableb_v3_var"/>
+            <step name="var" id="applyform_unionpaytransactionvariableb_v3_var"/>
+            <step name="var" id="applyform_var"/>
+            <step name="var" id="app_msgr_v3_var"/>
+            <step name="var" id="app_msgr_applyform_v3_var"/>
+
+
+            <step name="model" id="app_msgr_v3_model"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

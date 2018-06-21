@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="onlinetimec_v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>集奥-手机号码在网时长查询3.0 标准化</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="onlinetimec_v3" order="1" percent="20" status="able">
+            <description>集奥-手机号码在网时长查询3.0 标准化</description>
+            <step name="std" id="onlinetimec_v3_std"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

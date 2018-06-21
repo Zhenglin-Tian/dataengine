@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:element name="mapper">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="writerWhere">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapper" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="type" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="jsonParam">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="json">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="arrayParam">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element ref="json" minOccurs="0" maxOccurs="50"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:attribute name="source" type="xs:string"/>
+            <xs:attribute name="target" type="xs:string"/>
+            <xs:attribute name="type" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

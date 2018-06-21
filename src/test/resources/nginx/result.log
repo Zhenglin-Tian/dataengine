@@ -1,0 +1,35 @@
+----------approve-------------
+sum:31334.470995247364
+size:4576
+max:15.144000053405762
+min:0.36800000071525574
+avg:6.847567962248113
+time > 10 count:592
+time > 12 count:497
+time > 15 count:8
+{"gid":"tcgid-965b52988f4649d48f0de55f6aba49a7","mobile":"18550385402","mid":"accountinfohit","cmid":"accountinfohit","uuid":"4c59e073dab62704972632428fca1266","req_time":"1526846817184","invokeIp":"10.149.80.93:80","time":"15.220"}
+{"gid":"tcgid-4002ea9247eb430cbe0e4117aa5fb681","mobile":"13415693553","mid":"accountinfohit","cmid":"accountinfohit","uuid":"136307a12a16d3abe4f7e024e19d0ee1","req_time":"1526869052907","invokeIp":"10.149.80.180:80","time":"15.084"}
+{"gid":"tcgid-6a4a6697e6084c578526e92943d5303d","mobile":"13661466550","mid":"accountinfohit","cmid":"accountinfohit","uuid":"0e99947ed176b71d1338145af4fbdcb5","req_time":"1526869192765","invokeIp":"10.149.80.180:80","time":"15.062"}
+{"gid":"tcgid-a4c1e0b329a843ae8b59cfd417cc5324","mobile":"13556266694","mid":"accountinfohit","cmid":"accountinfohit","uuid":"8d96a8d1ec3cd85569f4f1add925d9ae","req_time":"1526869230741","invokeIp":"10.149.80.93:80","time":"15.074"}
+{"gid":"tcgid-3a9f546a0f5248d89228bfea9d1b7a67","mobile":"15368735791","mid":"accountinfohit","cmid":"accountinfohit","uuid":"009e3ef981b077e098ae18a535edecc4","req_time":"1526869267588","invokeIp":"10.149.80.180:80","time":"15.067"}
+{"gid":"tcgid-a45735e119b54f699755f899733ed382","mobile":"18758779976","mid":"accountinfohit","cmid":"accountinfohit","uuid":"491aa80cf846032262ad28f55c2da6ca","req_time":"1526869339110","invokeIp":"10.149.80.93:80","time":"15.113"}
+{"gid":"tcgid-f8086b78ddd0446b81f04fb971d53caa","mobile":"15955671700","mid":"accountinfohit","cmid":"accountinfohit","uuid":"b9a6bd213c0c00a6408119304d0facb4","req_time":"1526869349255","invokeIp":"10.149.80.93:80","time":"15.069"}
+{"gid":"tcgid-61ebe4770d084b30a687d11a48d98d4e","mobile":"15222136211","mid":"accountinfohit","cmid":"accountinfohit","uuid":"17aa00cf2aed6594d01383e66f526a8c","req_time":"1526869479787","invokeIp":"10.149.80.180:80","time":"15.070"}
+-----------------------------------------------------
+----------dataaccess-------------
+sum:30391.59399281442
+size:4564
+max:15.220000267028809
+min:0.17000000178813934
+avg:6.658982031729716
+time > 10 count:581
+time > 12 count:496
+time > 15 count:8
+{"gid":"tcgid-965b52988f4649d48f0de55f6aba49a7","mobile":"18550385402","mid":"accountinfohit","cmid":"accountinfohit","uuid":"4c59e073dab62704972632428fca1266","req_time":"1526846817184","invokeIp":"10.149.80.93:80","time":"15.220"}
+{"gid":"tcgid-4002ea9247eb430cbe0e4117aa5fb681","mobile":"13415693553","mid":"accountinfohit","cmid":"accountinfohit","uuid":"136307a12a16d3abe4f7e024e19d0ee1","req_time":"1526869052907","invokeIp":"10.149.80.180:80","time":"15.084"}
+{"gid":"tcgid-6a4a6697e6084c578526e92943d5303d","mobile":"13661466550","mid":"accountinfohit","cmid":"accountinfohit","uuid":"0e99947ed176b71d1338145af4fbdcb5","req_time":"1526869192765","invokeIp":"10.149.80.180:80","time":"15.062"}
+{"gid":"tcgid-a4c1e0b329a843ae8b59cfd417cc5324","mobile":"13556266694","mid":"accountinfohit","cmid":"accountinfohit","uuid":"8d96a8d1ec3cd85569f4f1add925d9ae","req_time":"1526869230741","invokeIp":"10.149.80.93:80","time":"15.074"}
+{"gid":"tcgid-3a9f546a0f5248d89228bfea9d1b7a67","mobile":"15368735791","mid":"accountinfohit","cmid":"accountinfohit","uuid":"009e3ef981b077e098ae18a535edecc4","req_time":"1526869267588","invokeIp":"10.149.80.180:80","time":"15.067"}
+{"gid":"tcgid-a45735e119b54f699755f899733ed382","mobile":"18758779976","mid":"accountinfohit","cmid":"accountinfohit","uuid":"491aa80cf846032262ad28f55c2da6ca","req_time":"1526869339110","invokeIp":"10.149.80.93:80","time":"15.113"}
+{"gid":"tcgid-f8086b78ddd0446b81f04fb971d53caa","mobile":"15955671700","mid":"accountinfohit","cmid":"accountinfohit","uuid":"b9a6bd213c0c00a6408119304d0facb4","req_time":"1526869349255","invokeIp":"10.149.80.93:80","time":"15.069"}
+{"gid":"tcgid-61ebe4770d084b30a687d11a48d98d4e","mobile":"15222136211","mid":"accountinfohit","cmid":"accountinfohit","uuid":"17aa00cf2aed6594d01383e66f526a8c","req_time":"1526869479787","invokeIp":"10.149.80.180:80","time":"15.070"}

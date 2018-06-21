@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="aaCreditProbe01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>信用探针（数据产品） 变量计算</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="aaCreditProbe01" order="1" percent="20" status="able">
+            <description>信用探针（数据产品） 变量计算</description>
+            <step name="std" id="many_multipoint_lending_nocard_v3_std"/>
+            <step name="std" id="many_multipoint_lending_withholding_v3_std"/>
+
+            <step name="tidy" id="aacreditprobe01_tidy"/>
+
+            <step name="var" id="aacreditprobe01_var_a"/>
+
+            <step name="model" id="aacreditprobe01_model_a"/>
+            <step name="model" id="aacreditprobe01_model_b"/>
+            <step name="model" id="aacreditprobe01_model_c"/>
+
+            <step name="var" id="aacreditprobe01_var_b"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

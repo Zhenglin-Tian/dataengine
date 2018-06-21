@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<dataModule status="able" id="userreport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>运营商爬虫</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="userreport" order="1" percent="20" status="able">
+            <description>运营商爬虫</description>
+            <step name="std" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${req|uuid}" target="uuid"/>
+                                <mapping source="${userreport}" target="mid"/>
+                                <mapping source="${userreport}" target="cmid"/>
+                                <mapping source="${req|req_time}" target="req_time"/>
+                                <mapping source="${req|mobile}" target="mobile"/>
+                                <mapping source="${req|tid}" target="orderId"/>
+                                <mapping source="${req|type}" target="type"/>
+                                <mapping source="${req|data}" target="data"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="tidy" order="1">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="userreport_tidy_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${userreport}" target="mid"/>
+                                <mapping source="${userreport}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${operator_one}" target="tidyId"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="var" order="2">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="userreport_var_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${userreport}" target="mid"/>
+                                <mapping source="${userreport}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="model" order="3">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="userreport_model_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${userreport}" target="mid"/>
+                                <mapping source="${userreport}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

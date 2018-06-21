@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="applyform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>客户入参处理</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="applyform" order="1" percent="20" status="able">
+            <description>客户入参处理</description>
+            <step name="std" id="applyform_std"/>
+            <step name="tidy" id="applyform_tidy"/>
+            <step name="var" id="applyform_var"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

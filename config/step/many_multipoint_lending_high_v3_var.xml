@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--多头借贷-高级版 var-->
+<step name="var" id="many_multipoint_lending_high_v3_var" status="able"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>many_multipoint_lending_high_v3_std</relyon>
+    <!--<period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>var_var_aa_ip_multipointlending_adv</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>-->
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="many_multipoint_lending_high_var"
+                           timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|many_multipoint_lending_high_v3_std}" target="rid"/>
+                    <mapping source="${req|idcard}" target="idcard"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+    <writer type="cxt">
+        <writerWhere type="cxt" name="multipointlending_high_v3_001_res">
+            <mapper>
+                <mapping/>
+            </mapper>
+        </writerWhere>
+    </writer>
+</step>

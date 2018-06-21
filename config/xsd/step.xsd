@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:include schemaLocation="reader.xsd"/>
+    <xs:include schemaLocation="handler.xsd"/>
+    <xs:include schemaLocation="writer.xsd"/>
+    <xs:include schemaLocation="status-type.xsd"/>
+    <xs:include schemaLocation="period.xsd"/>
+    <xs:element name="step">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="relyon" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="period" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="reader" maxOccurs="1" minOccurs="0"/>
+                <xs:element ref="handler" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="writer" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="name-type"/>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="order" type="xs:unsignedInt"/>
+            <xs:attribute name="status" type="status-type"/>
+            <xs:attribute name="storeType" type="store-type"/>
+            <xs:attribute name="persistence" type="persistence-type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="name-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="std"/>
+            <xs:enumeration value="tidy"/>
+            <xs:enumeration value="var"/>
+            <xs:enumeration value="model"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="store-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="mongo"/>
+            <xs:enumeration value="hbase"/>
+            <xs:enumeration value="mysql"/>
+            <xs:enumeration value="redis"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="persistence-type">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+</xs:schema>

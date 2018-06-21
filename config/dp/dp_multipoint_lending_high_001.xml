@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="multipointlending_high_001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>多头借贷高级版（数据产品） 变量计算</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="multipointlending_high_001" order="1" percent="20" status="able">
+            <description>多头借贷高级版（数据产品） 变量计算</description>
+            <step name="std" id="many_multipoint_lending_high_std"/>
+
+            <step name="var" id="many_multipoint_lending_high_var"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

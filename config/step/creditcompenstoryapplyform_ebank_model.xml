@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--信用卡代偿申请变量和信用卡账单变量 model-->
+<step name="model" id="creditcompenstoryapplyform_ebank_model" status="able" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../xsd/step.xsd">
+    <relyon>crawler_ebank_var,creditcompenstoryapplyform_var</relyon>
+    <period>
+        <periodInSecond>5</periodInSecond>
+        <mainTable>model_model_zz_ccrp_enterm</mainTable>
+        <params>
+            <param name="gid" value="${req|gid}"/>
+        </params>
+    </period>
+    <handler type="http">
+        <serviceCallingManager>
+            <serviceCaller method="POST" paramForm="map" url="bankcardr_admittance_model_data_url" timeThreshold="50"
+                           failurePolicy="attempt">
+                <mapper>
+                    <mapping source="${unit|mid}" target="mid"/>
+                    <mapping source="${unit|id}" target="cmid"/>
+
+                    <mapping source="${req|gid}" target="gid"/>
+                    <mapping source="${cxt|crawler_ebank_var}" target="rid"/>
+                </mapper>
+            </serviceCaller>
+            <attemptManager times="3" intervalInMilli="30"></attemptManager>
+        </serviceCallingManager>
+    </handler>
+</step>

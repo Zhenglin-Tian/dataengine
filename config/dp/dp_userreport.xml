@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="userreport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>运营商爬虫 模型分</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="userreport" order="1" percent="20" status="able">
+            <description>运营商爬虫 模型分</description>
+            <step name="std" id="userreport_std"/>
+
+            <step name="tidy" id="userreport_tidy"/>
+
+            <step name="var" id="userreport_var"/>
+
+            <step name="model" id="userreport_model"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

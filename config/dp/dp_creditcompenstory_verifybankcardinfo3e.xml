@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="creditcompenstoryverifybankcardinfo3e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>银行卡三要素6（信用卡代偿）模型分</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="creditcompenstoryverifybankcardinfo3e" order="1" percent="20" status="able">
+            <description>银行卡三要素6（信用卡代偿）模型分</description>
+
+            <step name="std" id="verifybankcardinfo3e_std"/>
+
+            <step name="var" id="verifybankcardinfo3e2creditcompensatory_var"/>
+
+            <step name="model" id="verifybankcardinfo3e2creditcompensatory_model"/>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

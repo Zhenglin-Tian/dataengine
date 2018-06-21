@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:include schemaLocation="data-processing-unit.xsd"/>
+    <xs:element name="dataProcessingUnits">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="dataProcessingUnit" maxOccurs="20" minOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="strategy" type="strategy-type"/>
+            <xs:attribute name="failurePolicy" type="outter-failure-policy-type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="strategy-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="order"/>
+            <xs:enumeration value="percent"/>
+            <xs:enumeration value="random"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="outter-failure-policy-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="cancel"/>
+            <xs:enumeration value="next"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

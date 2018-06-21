@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataModule status="able" id="applyformstd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>客户入参处理 数据标准化</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <dataProcessingUnit id="applyformstd" order="1" percent="20" status="able">
+            <description>客户入参处理 数据标准化</description>
+            <step name="std" id="applyform_std"/>
+
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

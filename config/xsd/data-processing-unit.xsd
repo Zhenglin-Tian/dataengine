@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <!---->
+    <xs:include schemaLocation="data-processing-unit.xsd"/>
+    <xs:include schemaLocation="status-type.xsd"/>
+    <xs:element name="dataProcessingUnit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element ref="step" minOccurs="1" maxOccurs="100"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="order" type="xs:int"/>
+            <xs:attribute name="percent" type="percent-type"/>
+            <xs:attribute name="status" type="status-type"/>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:simpleType name="percent-type">
+        <xs:restriction base="xs:int">
+            <xs:pattern value="[0-9]|[1-9][0-9]|100"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="step">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="id" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

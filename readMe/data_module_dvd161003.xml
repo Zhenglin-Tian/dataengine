@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--以银行卡四要素认证为例-->
+<dataModule status="able" id="dvd161003" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+    <description>银行卡四要素认证</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="dvd161003001" order="1" percent="100" status="able/disable">
+            <description>银行卡四要素认证接口1</description>
+            <step name="dataprepare" order="1" relyOn="dvd161003001:std,dvd161003002:std,dvd161003003:std">
+                <reader type="">
+                    <mapping source="${request.gid}" target="${context.gid}"/>
+                </reader>
+                <handler type="httpService">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST/GET" inputForm="Map/Json" url="" timeThreshold="20" falilurePolicy="ignore/attempt">
+                            <pmaramMapper>
+                                <mapping sourceField="${request.idCard}" targetField="idCard" type=""/>
+                                <mapping sourceField="${request.nameCustc}" targetField="name" type=""/>
+                                <mapping sourceField="${request.bankCardNo}" targetField="bankCardNo" type=""/>
+                                <mapping sourceField="${request.mobile}" targetField="mobile" type=""/>
+                            </pmaramMapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+                <!--<handler type="dubboService">
+
+                </handler>
+                <handler type="mapping">
+
+                </handler>
+                <handler type="local">
+
+                </handler>-->
+                <writer>
+                    <mapping source="${context.gid}" target="${response.gid}"/>
+                    <mapping source="${context.tableName}" target="${response.tableName}"/>
+                </writer>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<dataModule status="able" id="verifybankcardinfo3ecompensatory" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/data_module.xsd">
+
+    <description>小视-银行卡三要素(信用卡代偿)</description>
+    <dataProcessingUnits strategy="order" failurePolicy="next">
+        <!--接口1-->
+        <dataProcessingUnit id="verifybankcardinfo3ecompensatory" order="1" percent="20" status="able">
+            <description>小视-银行卡三要素(信用卡代偿)</description>
+            <step name="std" order="0">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="json(params)" url="std_data_url" timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="mid"/>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="cmid"/>
+
+                                <mapping source="${req|gid}" target="gid"/>
+                                <mapping source="${req|uuid}" target="uuid"/>
+                                <mapping source="${req|idcard}" target="idcard"/>
+                                <mapping source="${req|name}" target="name"/>
+                                <mapping source="${req|bankcard}" target="bankcard"/>
+                                <mapping source="${req|req_time}" target="req_time"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+
+            <step name="var" order="1">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="verifybankcardinfo3ecompensatory_var_data_url"
+                                       timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="mid"/>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+            <step name="model" order="2">
+                <handler type="http">
+                    <serviceCallingManager>
+                        <serviceCaller method="POST" paramForm="map" url="verifybankcardinfo3ecompensatory_model_data_url"
+                                       timeThreshold="50"
+                                       failurePolicy="attempt">
+                            <mapper>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="mid"/>
+                                <mapping source="${verifybankcardinfo3ecompensatory}" target="cmid"/>
+                                <mapping source="${req|gid}" target="gid"/>
+                            </mapper>
+                        </serviceCaller>
+                        <attemptManager times="3" intervalInMilli="30"></attemptManager>
+                    </serviceCallingManager>
+                </handler>
+            </step>
+        </dataProcessingUnit>
+    </dataProcessingUnits>
+</dataModule>
